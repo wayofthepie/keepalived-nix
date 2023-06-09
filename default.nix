@@ -1,5 +1,5 @@
 { pkgs ?
-    if builtins.currentSystem != "aarch64-multiplatform" then (import <nixpkgs> {}).pkgsCross.aarch64-multiplatform
+    if builtins.match "aarch64-linux" builtins.currentSystem != null then (import <nixpkgs> {}).pkgsCross.aarch64-multiplatform
     else import <nixpkgs> {},
   version ? "0.0.0"
 }:
