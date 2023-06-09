@@ -1,8 +1,11 @@
-{ version ? "0.0.0" }:
+{ pkgs ?
+    if builtins.currentSystem != "aarch64-multiplatform" then (import <nixpkgs> {}).pkgsCross.aarch64-multiplatform
+    else import <nixpkgs> {},
+  version ? "0.0.0"
+}:
 
 let
-  pkgs = (import <nixpkgs> {}).pkgsCross.aarch64-multiplatform;
-  keepalived = with pkgs; stdenv.mkDerivation {
+    keepalived = with pkgs; stdenv.mkDerivation {
     name = "keepalived";
     src = fetchurl {
       url = "https://www.keepalived.org/software/keepalived-2.2.8.tar.gz";
